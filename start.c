@@ -13,8 +13,8 @@ double calc(char* expression);
 char* readingSingleToken(char* expression, int* pos);
 void readingNumber(char* expression, int* pos, char* token, int* ind_token);
 void readingString(char* expression, int* pos, char* token, int* ind_token);
-void distributionByStack(Node* stack_operator, Node* stack_number, char* token);
 void calcByPolishNotationAlg(Node** stack_number, char* operator);
+
 // При добавлении новой математической функции добавить их в функции ниже
 int priorityOperator(char* operator);
 int countOperands(char* operator);
@@ -23,7 +23,9 @@ double calcUnary(char* operator, double operand);
 
 
 int main(void) {
-    double res = calc("-cos(1.17+1)");
+    
+    // double res = calc("-cos(1.17+1)");
+    double res = calc("15/(7-(1+1))*3-(2+(1+1))*15/(7-(200+1))*3-(2+(1+1))*(15/(7-(1+1))*3-(2+(1+1))+15/(7-(1+1))*3-(2+(1+1)))");
     printf("res = %lf\n", res);
 }
 
@@ -35,7 +37,7 @@ double calc(char* expression) {
     int len_exp = strlen(expression);
     char* token_prev = NULL;
 
-    printf("START\n");
+    // printf("START\n");
     while (pos < len_exp ) {
         // здесь возращается токен в виде динамической памяти - НУЖНО ОСВОБОДИТЬ ПАМЯТЬ!!!
         char* token = readingSingleToken(expression, &pos);
@@ -68,11 +70,7 @@ double calc(char* expression) {
             push(&stack_operator, token);
         }
 
-        // printf("2222222222222222");
-        // printf("%s \n", token);
         token_prev = token;
-        // printStack(stack_number);
-        // printStack(stack_operator);
     }
 
     // разбор операторов оставшихся в стеке
@@ -146,27 +144,6 @@ void readingString(char* expression, int* pos, char* token, int* ind_token) {
         }
     }
 }
-
-// ложит токен в стек или вычисляет промежуточный результат и ложит его в стек
-void distributionByStack(Node* stack_operator, Node* stack_number, char* token) {
-    if ('0' <= token[0] && token[0] <= '9') {
-        push(&stack_number, token);
-    } else if (token[0] == '(') {
-        push(&stack_operator, token);
-    } else if (token[0] == ')') {
-         while (stack_operator && strcmp(peek(stack_operator), "(") != 0) {
-                char* op_last = pop(&stack_operator);
-                calcByPolishNotationAlg(&stack_number, op_last);
-                free(op_last);
-            }
-            free(pop(&stack_operator));
-    }  else {
-
-        push(&stack_operator, token);
-    }
-    
-}
-
 
 // 
 void calcByPolishNotationAlg(Node** stack_number, char* operator) {
