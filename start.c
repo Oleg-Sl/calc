@@ -53,7 +53,7 @@ double calc(char* expression) {
         } else if (token[0] == '(') {
             push(&stack_operator, token);
         } else if (token[0] == ')') {
-            while (stack_operator && strcmp(peek(&stack_operator), "(") != 0) {
+            while (stack_operator && strcmp(peek(stack_operator), "(") != 0) {
                 calcByPolishNotationAlg(&stack_number, pop(&stack_operator));
             }
             pop(&stack_operator);
@@ -65,7 +65,7 @@ double calc(char* expression) {
                 token = '~';
             }
 
-            while (stack_number && priorityOperator(peek(&stack_operator)) >= priorityOperator(token)) {
+            while (stack_number && priorityOperator(peek(stack_operator)) >= priorityOperator(token)) {
                 calcByPolishNotationAlg(&stack_number, pop(&stack_operator));
             }
             push(&stack_operator, token);
@@ -152,7 +152,7 @@ void distributionByStack(Node* stack_operator, Node* stack_number, char* token) 
     } else if (token[0] == '(') {
         push(&stack_operator, token);
     } else if (token[0] == ')') {
-         while (stack_operator && strcmp(peek(&stack_operator), "(") != 0) {
+         while (stack_operator && strcmp(peek(stack_operator), "(") != 0) {
                 calcByPolishNotationAlg(&stack_number, pop(&stack_operator));
             }
             pop(&stack_operator);
@@ -176,7 +176,8 @@ void calcByPolishNotationAlg(Node** stack_number, char* operator) {
         res = calcUnary(operator, last_value);
     }
     char* buf = (char*)malloc(12*sizeof(char));
-    push(stack_number, sprintf(buf, "%f", res));
+    sprintf(buf, "%f", res);
+    push(stack_number, buf);
 }
 
 
