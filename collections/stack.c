@@ -20,7 +20,7 @@ char* pop(Node** top) {
   char* str = NULL;
   if (*top != NULL) {
     Node* tmp = *top;
-    str = realloc(str, sizeof(tmp->str));
+    // str = realloc(str, sizeof(tmp->str));
     str = tmp->str;
     *top = tmp->next;
     free(tmp);
