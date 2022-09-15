@@ -45,7 +45,7 @@ double calc(char* expression) {
 
     printf("START\n");
     while (pos < len_exp ) {
-        printf("111111111111111111");
+        // printf("111111111111111111");
         printStack(stack_operator);
         printStack(stack_number);
         // здесь возращается токен в виде динамической памяти - НУЖНО ОСВОБОДИТЬ ПАМЯТЬ!!!
@@ -68,15 +68,15 @@ double calc(char* expression) {
                 token[0] = '~';
                 token[1] = '\0';
             }
-            printf("peek = %s \n", peek(stack_operator));
-            printf("token = %s \n", token);
+            // printf("peek = %s \n", peek(stack_operator));
+            // printf("token = %s \n", token);
             // while (stack_number && priorityOperator(peek(stack_operator)) >= priorityOperator(token)) {
             //     calcByPolishNotationAlg(&stack_number, pop(&stack_operator));
             // }
             push(&stack_operator, token);
         }
 
-        printf("2222222222222222");
+        // printf("2222222222222222");
         // printf("%s \n", token);
         token_prev = token;
         printStack(stack_number);
