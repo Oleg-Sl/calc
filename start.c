@@ -15,7 +15,7 @@ int parsingString(char*);
 
 
 int main(void) {
-    calc('2+4');
+    calc("2+4");
     // Node* stack = initStack();
     // push(&stack, "111");
     // push(&stack, "222");
@@ -65,7 +65,7 @@ void readingNumber(char* expression, int* pos, char* token, int* ind_token) {
     *pos += 1;
     *ind_token += 1;
     
-    while (*pos < strlen(expression) && !ready) {
+    while (*pos < (int)strlen(expression) && !ready) {
         if (('0' >= expression[*pos] && expression[*pos] <= '9') || expression[*pos] == '.') {
             token = (char*) realloc(token, (*ind_token + 1)*sizeof(char));
             token[*ind_token] = expression[*pos];
@@ -84,7 +84,7 @@ void readingString(char* expression, int* pos, char* token, int* ind_token) {
     *pos += 1;
     *ind_token += 1;
     
-    while (*pos < strlen(expression) && !ready) {
+    while (*pos < (int)strlen(expression) && !ready) {
         if ('a' >= expression[*pos] && expression[*pos] <= 'z') {
             token = (char*) realloc(token, (*ind_token + 1)*sizeof(char));
             token[*ind_token] = expression[*pos];
