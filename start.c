@@ -49,6 +49,8 @@ char* readingSingleToken(char* expression, int* pos) {
         // токен - одиночный
         printf("токен - одиночный = %c \n", expression[*pos]);
         buffer[ind_buffer] = expression[*pos];
+        *pos += 1;
+        ind_buffer += 1;
     } else if ('0' <= expression[*pos] && expression[*pos] <= '9') {
         // токен - число
         printf("токен - число = %c \n", expression[*pos]);
