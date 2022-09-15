@@ -24,7 +24,7 @@ double calcUnary(char* operator, double operand);
 
 int main(void) {
     // double res = calc("2.9+498.9-cos(122*9)+ln(3)");
-    double res = calc("4.5+-5.5-cos(1.17*180/3.14)");
+    double res = calc("-cos(1.17*180/3.14)");
     printf("res = %lf\n", res);
     // Node* stack = initStack();
     // push(&stack, "111");
@@ -77,8 +77,8 @@ double calc(char* expression) {
         // printf("2222222222222222");
         // printf("%s \n", token);
         token_prev = token;
-        printStack(stack_number);
-        printStack(stack_operator);
+        // printStack(stack_number);
+        // printStack(stack_operator);
     }
 
     // разбор операторов оставшихся в стеке
