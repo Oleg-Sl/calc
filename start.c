@@ -15,7 +15,7 @@ int parsingString(char*);
 
 
 int main(void) {
-    calc("2+4");
+    calc("2.9+498.9-cos(122*9)+ln(3)");
     // Node* stack = initStack();
     // push(&stack, "111");
     // push(&stack, "222");
@@ -34,7 +34,6 @@ double calc(char* expression) {
     while (pos < len_exp ) {
         char* token = readingSingleToken(expression, &pos);
         printf("%s \n", token);
-        printf("=> \n");
     }
 
     return 0;
@@ -47,17 +46,14 @@ char* readingSingleToken(char* expression, int* pos) {
 
     if (strchr(ARRAY_VALID_LITERALS, expression[*pos])) {
         // токен - одиночный
-        printf("токен - одиночный = %c \n", expression[*pos]);
         buffer[ind_buffer] = expression[*pos];
         *pos += 1;
         ind_buffer += 1;
     } else if ('0' <= expression[*pos] && expression[*pos] <= '9') {
         // токен - число
-        printf("токен - число = %c \n", expression[*pos]);
         readingNumber(expression, pos, buffer, &ind_buffer);
     } else if ('a' <= expression[*pos] && expression[*pos] <= 'z') {
         // токен - строка
-        printf("токен - строка = %c \n", expression[*pos]);
         readingString(expression, pos, buffer, &ind_buffer);
     }
 
