@@ -23,7 +23,8 @@ double calcUnary(char* operator, double operand);
 
 
 int main(void) {
-    double res = calc("2.9+498.9-cos(122*9)+ln(3)");
+    // double res = calc("2.9+498.9-cos(122*9)+ln(3)");
+    double res = calc("2.9+498.9");
     printf("res = %lf\n", res);
     // Node* stack = initStack();
     // push(&stack, "111");
