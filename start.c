@@ -23,17 +23,8 @@ double calcUnary(char* operator, double operand);
 
 
 int main(void) {
-    // double res = calc("2.9+498.9-cos(122*9)+ln(3)");
     double res = calc("-cos(1.17+1)");
     printf("res = %lf\n", res);
-    // Node* stack = initStack();
-    // push(&stack, "111");
-    // push(&stack, "222");
-    // push(&stack, "333");
-    // printStack(stack);
-    // printf("pop = %s\n", pop(&stack));
-    // printf("pop = %s\n", pop(&stack));
-    // printStack(stack);
 }
 
 // вычисляет резултат математического выражения переданного в виде строки
@@ -55,9 +46,12 @@ double calc(char* expression) {
             push(&stack_operator, token);
         } else if (token[0] == ')') {
             while (stack_operator && strcmp(peek(stack_operator), "(") != 0) {
-                calcByPolishNotationAlg(&stack_number, pop(&stack_operator));
+                char* top = pop(&stack_operator);
+                calcByPolishNotationAlg(&stack_number, top);
+                free(top);
             }
-            pop(&stack_operator);
+            char* t = pop(&stack_operator);
+            free(t);
         } else if (token[0] == '+' && (token_prev == NULL || token_prev[0] == '+' || token_prev[0] == '-' || token_prev[0] == '/' || token_prev[0] == '*' || token_prev[0] == '(')) {
             token_prev = token;
             continue;
@@ -66,10 +60,10 @@ double calc(char* expression) {
                 token[0] = '~';
                 token[1] = '\0';
             }
-            // printf("peek = %s \n", peek(stack_operator));
-            // printf("token = %s \n", token);
             while (stack_number && stack_operator && priorityOperator(peek(stack_operator)) >= priorityOperator(token)) {
-                calcByPolishNotationAlg(&stack_number, pop(&stack_operator));
+                char* top = pop(&stack_operator);
+                calcByPolishNotationAlg(&stack_number, top);
+                free(top);
             }
             push(&stack_operator, token);
         }
@@ -83,11 +77,14 @@ double calc(char* expression) {
 
     // разбор операторов оставшихся в стеке
     while (stack_operator) {
-        calcByPolishNotationAlg(&stack_number, pop(&stack_operator));
+        char* top = pop(&stack_operator);
+        calcByPolishNotationAlg(&stack_number, top);
     }
 
     char* result = pop(&stack_number);
-    return strtod(result, NULL);
+    double r = strtod(result, NULL);
+    free(result);
+    return r;
 }
 
 // считывание токена из выражения "expression" с индекса позиции "pos"
@@ -158,9 +155,11 @@ void distributionByStack(Node* stack_operator, Node* stack_number, char* token) 
         push(&stack_operator, token);
     } else if (token[0] == ')') {
          while (stack_operator && strcmp(peek(stack_operator), "(") != 0) {
-                calcByPolishNotationAlg(&stack_number, pop(&stack_operator));
+                char* op_last = pop(&stack_operator);
+                calcByPolishNotationAlg(&stack_number, op_last);
+                free(op_last);
             }
-            pop(&stack_operator);
+            free(pop(&stack_operator));
     }  else {
 
         push(&stack_operator, token);
@@ -173,18 +172,23 @@ void distributionByStack(Node* stack_operator, Node* stack_number, char* token) 
 void calcByPolishNotationAlg(Node** stack_number, char* operator) {
     double res;
     if (countOperands(operator) == 2) {
-        double last_value = strtod(pop(stack_number), NULL);
-        double prev_value = strtod(pop(stack_number), NULL);
+        char* top = pop(stack_number);
+        char* top_prev = pop(stack_number);
+        double last_value = strtod(top, NULL);
+        double prev_value = strtod(top_prev, NULL);
+        free(top);
+        free(top_prev);
         res = calcBinary(operator, prev_value, last_value);
     } else {
-        double last_value = strtod(pop(stack_number), NULL);
+        char* top = pop(stack_number);
+        double last_value = strtod(top, NULL);
+        free(top);
         res = calcUnary(operator, last_value);
     }
     char* buf = (char*)malloc(12*sizeof(char));
     sprintf(buf, "%f", res);
     push(stack_number, buf);
 }
-
 
 // возвращает приоритет переданного оператора
 int priorityOperator(char* operator) {
