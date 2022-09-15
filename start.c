@@ -49,11 +49,11 @@ char* readingSingleToken(char* expression, int* pos) {
         // токен - одиночный
         printf("токен - одиночный = %c \n", expression[*pos]);
         buffer[ind_buffer] = expression[*pos];
-    } else if ('0' >= expression[*pos] && expression[*pos] <= '9') {
+    } else if ('0' <= expression[*pos] && expression[*pos] <= '9') {
         // токен - число
         printf("токен - число = %c \n", expression[*pos]);
         readingNumber(expression, pos, buffer, &ind_buffer);
-    } else if ('a' >= expression[*pos] && expression[*pos] <= 'z') {
+    } else if ('a' <= expression[*pos] && expression[*pos] <= 'z') {
         // токен - строка
         printf("токен - строка = %c \n", expression[*pos]);
         readingString(expression, pos, buffer, &ind_buffer);
@@ -71,7 +71,7 @@ void readingNumber(char* expression, int* pos, char* token, int* ind_token) {
     *ind_token += 1;
     
     while (*pos < (int)strlen(expression) && !ready) {
-        if (('0' >= expression[*pos] && expression[*pos] <= '9') || expression[*pos] == '.') {
+        if (('0' <= expression[*pos] && expression[*pos] <= '9') || expression[*pos] == '.') {
             token = (char*) realloc(token, (*ind_token + 1)*sizeof(char));
             token[*ind_token] = expression[*pos];
             *pos += 1;
@@ -90,7 +90,7 @@ void readingString(char* expression, int* pos, char* token, int* ind_token) {
     *ind_token += 1;
     
     while (*pos < (int)strlen(expression) && !ready) {
-        if ('a' >= expression[*pos] && expression[*pos] <= 'z') {
+        if ('a' <= expression[*pos] && expression[*pos] <= 'z') {
             token = (char*) realloc(token, (*ind_token + 1)*sizeof(char));
             token[*ind_token] = expression[*pos];
             *pos += 1;
