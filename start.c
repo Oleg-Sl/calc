@@ -45,6 +45,9 @@ double calc(char* expression) {
 
     printf("START\n");
     while (pos < len_exp ) {
+        printf("111111111111111111");
+        printStack(stack_operator);
+        printStack(stack_number);
         // здесь возращается токен в виде динамической памяти - НУЖНО ОСВОБОДИТЬ ПАМЯТЬ!!!
         char* token = readingSingleToken(expression, &pos);
         // запись токена в соответствующий стек
@@ -72,6 +75,7 @@ double calc(char* expression) {
             push(&stack_operator, token);
         }
 
+        printf("2222222222222222");
         // printf("%s \n", token);
         token_prev = token;
         printStack(stack_number);
