@@ -30,9 +30,11 @@ int main(void) {
 double calc(char* expression) {
     int pos = 0;
     int len_exp = strlen(expression);
+    printf("START");
     while (pos < len_exp ) {
         char* token = readingSingleToken(expression, &pos);
         printf("%s \n", token);
+        printf("=> \n")
     }
 
     return 0;
