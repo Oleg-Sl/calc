@@ -30,7 +30,7 @@ int main(void) {
 double calc(char* expression) {
     int pos = 0;
     int len_exp = strlen(expression);
-    printf("START");
+    printf("START\n");
     while (pos < len_exp ) {
         char* token = readingSingleToken(expression, &pos);
         printf("%s \n", token);
@@ -47,12 +47,15 @@ char* readingSingleToken(char* expression, int* pos) {
 
     if (strchr(ARRAY_VALID_LITERALS, expression[*pos])) {
         // токен - одиночный
+        printf("токен - одиночный = %c \n", expression[*pos]);
         buffer[ind_buffer] = expression[*pos];
     } else if ('0' >= expression[*pos] && expression[*pos] <= '9') {
         // токен - число
+        printf("токен - число = %c \n", expression[*pos]);
         readingNumber(expression, pos, buffer, &ind_buffer);
     } else if ('a' >= expression[*pos] && expression[*pos] <= 'z') {
         // токен - строка
+        printf("токен - строка = %c \n", expression[*pos]);
         readingString(expression, pos, buffer, &ind_buffer);
     }
 
