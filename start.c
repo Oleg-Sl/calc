@@ -68,7 +68,7 @@ double calc(char* expression) {
                 token[0] = '~';
                 token[1] = '\0';
             }
-
+            printf("peek = %s \n", peek(stack_operator));
             while (stack_number && priorityOperator(peek(stack_operator)) >= priorityOperator(token)) {
                 calcByPolishNotationAlg(&stack_number, pop(&stack_operator));
             }
