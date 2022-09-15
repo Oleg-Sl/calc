@@ -1,49 +1,5 @@
 #include "s21_calc.h"
 
-Node* init() { return NULL; }
-
-void push(Node** top, char* str) {
-  Node* tmp = (Node*)malloc(sizeof(Node));
-  tmp->next = *top;
-  tmp->str = str;
-  *top = tmp;
-}
-
-char* pop(Node** top) {
-  char* str = NULL;
-  if (*top != NULL) {
-    Node* tmp = *top;
-    str = realloc(str, sizeof(tmp->str));
-    str = tmp->str;
-    *top = tmp->next;
-    free(tmp);
-  }
-  return str;
-}
-
-void removeList(Node** top) {
-  while (*top != NULL) {
-    Node* tmp = *top;
-    *top = tmp->next;
-    free(tmp);
-  }
-}
-
-void print_list(Node* top) {
-  while (top != NULL) {
-    printf("%s ", top->str);
-    top = top->next;
-  }
-  printf("\n");
-}
-
-char* peek(Node* top) {
-  char* tmp = NULL;
-  if (top) {
-    tmp = top->str;
-  }
-  return tmp;
-}
 
 int get_c_priority(char* str) {
   int priority = 0;
