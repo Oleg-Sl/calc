@@ -34,7 +34,7 @@ double calc(char* expression) {
     while (pos < len_exp ) {
         char* token = readingSingleToken(expression, &pos);
         printf("%s \n", token);
-        printf("=> \n")
+        printf("=> \n");
     }
 
     return 0;
