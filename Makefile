@@ -5,7 +5,7 @@ CFLAGS= -c -Wall -Werror -Wextra
 all: start
 
 start: start.o colections.o
-	$(CC) -o a.out colections.o start.o
+	$(CC) -o a.out colections.o start.o -lm
 
 start.o: start.c
 	$(CC) $(CFLAGS) -o start.o start.c
