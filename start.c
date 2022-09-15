@@ -62,7 +62,8 @@ double calc(char* expression) {
             continue;
         } else {
             if (token[0] == '-' && (token_prev == NULL || token_prev[0] == '+' || token_prev[0] == '-' || token_prev[0] == '/' || token_prev[0] == '*' || token_prev[0] == '(')) {
-                token = '~';
+                token[0] = '~';
+                token[1] = '\0';
             }
 
             while (stack_number && priorityOperator(peek(stack_operator)) >= priorityOperator(token)) {
